@@ -65,7 +65,8 @@ const Sidebar = ({
             disabled={gameStarted}
           />
           <GridSize setGridSize={setGridSize} disabled={gameStarted} />
-          <Ads />
+          <Ads index={0} />
+          <Ads index={1} />
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-"use client"; // Ensure this is a Client Component
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -6,14 +6,17 @@ import { RegisterUser } from "@/app/_lib/actions";
 
 export default function RegisterForm() {
   const [status, setStatus] = useState({ success: null, message: "" });
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     const formData = new FormData(event.target);
 
     // Ensure passwords match
     if (formData.get("password") !== formData.get("confirm-password")) {
       setStatus({ success: false, message: "Passwords do not match." });
+      setLoading(false);
       return;
     }
 
@@ -25,6 +28,7 @@ export default function RegisterForm() {
     } else {
       setStatus({ success: true, message: response.message });
     }
+    setLoading(false);
   }
 
   return (
@@ -118,9 +122,14 @@ export default function RegisterForm() {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 font-medium mt-6"
+              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 font-medium mt-6 flex items-center justify-center"
+              disabled={loading}
             >
-              Create Account
+              {loading ? (
+                <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5 mr-2"></span>
+              ) : (
+                "Create Account"
+              )}
             </button>
           </form>
 

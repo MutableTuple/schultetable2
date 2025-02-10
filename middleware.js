@@ -18,7 +18,7 @@ export function middleware(request) {
     console.log("SESSION DOESN'T EXIST");
 
     // If user is NOT logged in and trying to access protected routes, redirect to login
-    if (pathname === "/account") {
+    if (pathname === "/account" || pathname === "/profile") {
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
@@ -28,5 +28,5 @@ export function middleware(request) {
 
 // Apply middleware to account, login, and register routes
 export const config = {
-  matcher: ["/account", "/login", "/register"],
+  matcher: ["/account", "/login", "/register", "/profile"],
 };

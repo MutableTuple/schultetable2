@@ -19,7 +19,8 @@ export async function getStatsofUser(user_id) {
   const { data, error } = await supabase
     .from("SingleGameStat")
     .select("*")
-    .eq("user", user_id);
+    .eq("user", user_id)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("❌ Supabase Error:", error);
@@ -61,5 +62,11 @@ export async function updateProfile(name, social_link, bio, id) {
     .select();
 
   if (error) console.log("err", error);
+  return data;
+}
+
+export async function getAllNotifications() {
+  const { data, error } = await supabase.from("Notification").select("*");
+  if (error) console.log("cannot fetch", error);
   return data;
 }

@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function Account({ session, user_stats }) {
+export default function Account({ session, user_stats, loggedin_user }) {
   const totalRightClicks = user_stats.reduce(
     (acc, game) => acc + game.total_right_click,
     0
@@ -44,12 +44,12 @@ export default function Account({ session, user_stats }) {
       <section className="bg-white rounded-2xl p-6 border border-zinc-100">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-6">
-            <div className="w-16 h-16 bg-indigo-600 text-white text-2xl flex items-center justify-center rounded-xl font-medium">
-              ST
+            <div className="w-16 h-16 bg-indigo-600 text-white text-2xl flex items-center justify-center rounded-xl font-medium uppercase">
+              {loggedin_user[0].name.slice(0, 2) || "NA"}
             </div>
             <div className="text-center md:text-left">
               <h1 className="text-2xl font-medium text-zinc-900">
-                Schulte Gamer
+                {loggedin_user[0].name || "NA"}
               </h1>
               <p className="text-zinc-500 text-sm mt-1">Elite Rank #5</p>
             </div>

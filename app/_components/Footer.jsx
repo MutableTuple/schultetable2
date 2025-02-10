@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { IoMailOpen } from "react-icons/io5";
 import { FaGithub, FaTwitter, FaHeart } from "react-icons/fa";
+import Image from "next/image";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,9 +14,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand Section */}
           <div className="space-y-4">
-            <h2 className="text-xs font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Schultetable.com
-            </h2>
+            <Image
+              src={
+                "https://hflzumrbjzkzofgzeyao.supabase.co/storage/v1/object/public/media//Logo.png"
+              }
+              width={50}
+              height={50}
+            />
             <p className="text-sm text-gray-600 leading-relaxed">
               Train your brain with the world's most engaging Schulte table
               exercises. Join thousands of users improving their cognitive
@@ -59,12 +64,7 @@ const Footer = () => {
               >
                 Leaderboard
               </Link>
-              <Link
-                href="/practice"
-                className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
-              >
-                Practice
-              </Link>
+
               <Link
                 href="/blog"
                 className="text-sm text-gray-600 hover:text-blue-600 transition-colors"

@@ -4,7 +4,7 @@ import Titles from "./Titles";
 import AdsBanner from "./AdsBanner";
 import { getAllAds } from "@/app/_lib/data-service";
 
-export default function Ads() {
+export default function Ads({ index = 0 }) {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,7 +12,7 @@ export default function Ads() {
     async function fetchAds() {
       try {
         const data = await getAllAds();
-        setAds(data);
+        setAds(data[index] ? [data[index]] : []);
       } catch (error) {
         console.error("Error fetching ads:", error);
       } finally {
@@ -20,7 +20,7 @@ export default function Ads() {
       }
     }
     fetchAds();
-  }, []);
+  }, [index]);
 
   return (
     <div>
