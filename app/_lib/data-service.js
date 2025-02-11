@@ -70,3 +70,11 @@ export async function getAllNotifications() {
   if (error) console.log("cannot fetch", error);
   return data;
 }
+// export async function getUsersScore(id) {
+//   const { data, error } = await supabase
+//     .from("User")
+//     .select("score")
+//     .eq("id", id);
+//   if (error) console.log("cannot fetch", error);
+//   return data;
+// }

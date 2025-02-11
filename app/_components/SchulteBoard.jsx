@@ -134,7 +134,6 @@ export default function SchulteBoard({ session }) {
   const handleClick = async (num, buttonRef) => {
     if (!gameStarted) return;
 
-    // Create DB entry on first click only if user is logged in
     if (!firstClickMade && user_id && gameId) {
       setFirstClickMade(true);
       const { error } = await supabase.from("SingleGameStat").insert([
@@ -148,10 +147,7 @@ export default function SchulteBoard({ session }) {
           time_taken: 0,
         },
       ]);
-
-      if (error) {
-        console.error("Error creating game entry:", error);
-      }
+      if (error) console.error("Error creating game entry:", error);
     }
 
     if (num === sortedNumbers[currentIndex]) {
@@ -159,9 +155,7 @@ export default function SchulteBoard({ session }) {
       setCurrentIndex((prev) => prev + 1);
       setTotalRightClicks((prev) => {
         const newCount = prev + 1;
-        if (user_id) {
-          updateGameStats({ rightClicks: newCount });
-        }
+        if (user_id) updateGameStats({ rightClicks: newCount });
         return newCount;
       });
 
@@ -171,29 +165,81 @@ export default function SchulteBoard({ session }) {
         setGameStarted(false);
         const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
         setElapsedTime(finalTime);
+
         if (user_id) {
-          updateGameStats({ time: finalTime });
+          const finalScore = calculateScore(
+            difficulty,
+            finalTime,
+            totalWrongClicks
+          );
+          await updateGameStats({ time: finalTime, score: finalScore });
+          await updateUserScore(finalScore);
         }
       }
     } else {
       setClickedNumbers((prev) => ({ ...prev, [num]: "wrong" }));
       setTotalWrongClicks((prev) => {
         const newCount = prev + 1;
-        if (user_id) {
-          updateGameStats({ wrongClicks: newCount });
-        }
+        if (user_id) updateGameStats({ wrongClicks: newCount });
         return newCount;
       });
     }
   };
 
-  const updateGameStats = async ({ rightClicks, wrongClicks, time }) => {
+  // Function to calculate score
+  const calculateScore = (difficulty, timeTaken, wrongClicks) => {
+    let baseScore = 0;
+
+    switch (difficulty) {
+      case "Medium":
+        baseScore = 2000;
+        break;
+      case "Hard":
+        baseScore = 3000;
+        break;
+      case "God":
+        baseScore = 5000;
+        break;
+      default:
+        baseScore = 1000;
+    }
+
+    let score = baseScore - timeTaken * 5 - wrongClicks * 50;
+    return Math.max(score, 0); // Ensure score is not negative
+  };
+
+  // Function to update user score
+  const updateUserScore = async (score) => {
+    if (!user_id) return;
+
+    const { data, error } = await supabase
+      .from("User")
+      .select("score")
+      .eq("id", user_id)
+      .single();
+
+    if (error) {
+      console.error("Error fetching user score:", error);
+      return;
+    }
+
+    const updatedScore = (data?.score || 0) + score;
+
+    await supabase
+      .from("User")
+      .update({ score: updatedScore })
+      .eq("id", user_id);
+  };
+
+  // Function to update game stats
+  const updateGameStats = async ({ rightClicks, wrongClicks, time, score }) => {
     if (!gameId || !user_id) return;
 
     const updates = {};
     if (rightClicks !== undefined) updates.total_right_click = rightClicks;
     if (wrongClicks !== undefined) updates.total_wrong_click = wrongClicks;
     if (time !== undefined) updates.time_taken = time;
+    if (score !== undefined) updates.score = score;
 
     const { error } = await supabase
       .from("SingleGameStat")

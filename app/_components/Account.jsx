@@ -10,7 +10,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
+import { formatNumber } from "../utils/formatNumber";
+import { FaRegEdit } from "react-icons/fa";
+import Link from "next/link";
 export default function Account({ session, user_stats, loggedin_user }) {
   const totalRightClicks = user_stats.reduce(
     (acc, game) => acc + game.total_right_click,
@@ -47,16 +49,23 @@ export default function Account({ session, user_stats, loggedin_user }) {
             <div className="w-16 h-16 bg-indigo-600 text-white text-2xl flex items-center justify-center rounded-xl font-medium uppercase">
               {loggedin_user[0].name.slice(0, 2) || "NA"}
             </div>
-            <div className="text-center md:text-left">
+            <div className="text-center md:text-left flex md:flex-row flex-col gap-2 items-center">
               <h1 className="text-2xl font-medium text-zinc-900">
                 {loggedin_user[0].name || "NA"}
               </h1>
-              <p className="text-zinc-500 text-sm mt-1">Elite Rank #5</p>
+              <Link
+                href="/profile"
+                className="flex gap-1 items-center hover:text-green-700"
+              >
+                <FaRegEdit /> (edit profile)
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-3 bg-amber-50 px-4 py-2 rounded-lg">
             <FaTrophy className="text-amber-500 text-xl" />
-            <span className="text-amber-700 font-medium">4,500 Points</span>
+            <span className="text-amber-700 font-medium">
+              {formatNumber(loggedin_user[0].score)} Points
+            </span>
           </div>
         </div>
       </section>

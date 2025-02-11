@@ -1,8 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Import Next.js router
 import { updateProfile } from "../_lib/data-service"; // Import the update function
 
 export default function ProfilePage({ fetched_user }) {
+  const router = useRouter(); // Initialize Next.js router
+
   const [profile, setProfile] = useState({
     name: fetched_user[0]?.name || "",
     social_link: fetched_user[0]?.social_link || "",
@@ -111,6 +114,14 @@ export default function ProfilePage({ fetched_user }) {
             {loading ? "Saving..." : "Save Profile"}
           </button>
         </form>
+
+        {/* Go Back Button */}
+        <button
+          onClick={() => router.back()}
+          className="w-full mt-4 bg-gray-500 text-white py-3 rounded-xl font-semibold hover:bg-gray-600 transition-all"
+        >
+          &larr; Go Back
+        </button>
       </div>
     </div>
   );
