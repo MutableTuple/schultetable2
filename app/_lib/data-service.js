@@ -54,10 +54,10 @@ export async function fetchUserFromDB(id) {
   return data;
 }
 
-export async function updateProfile(name, social_link, bio, id) {
+export async function updateProfile(name, social_link, bio, nationality, id) {
   const { data, error } = await supabase
     .from("User")
-    .update({ name, social_link, bio })
+    .update({ name, social_link, bio, nationality })
     .eq("id", id)
     .select();
 
