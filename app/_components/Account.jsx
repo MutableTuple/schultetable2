@@ -201,6 +201,9 @@ export default function Account({ session, user_stats, loggedin_user }) {
                   <div className="bg-indigo-50 px-2 md:px-3 py-1 rounded-lg text-indigo-700">
                     {game.time_taken}s
                   </div>
+                  <div className="bg-purple-50 px-2 md:px-3 py-1 rounded-lg text-purple-700">
+                    {game.score}
+                  </div>
                 </div>
               </div>
             </div>
