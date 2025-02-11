@@ -2,15 +2,7 @@ export async function GET() {
   const baseUrl = "https://schultetable.com";
 
   // Public pages that should be indexed
-  const pages = [
-    "",
-    "/about",
-    "/blog",
-    "/contact",
-    "/schulte-table-game",
-    "/login",
-    "/register",
-  ];
+  const pages = ["", "/about", "/blog", "/contact", "/login", "/register"];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
