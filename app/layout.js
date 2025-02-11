@@ -1,7 +1,7 @@
 import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import Footer from "./_components/Footer";
-import { GoogleAnalytics } from "@next/third-parties/google"; // Import Google Analytics
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const pixelFont = Press_Start_2P({
   subsets: ["latin"],
@@ -9,12 +9,14 @@ const pixelFont = Press_Start_2P({
   weight: ["400"],
   display: "swap",
 });
+
 export const viewport = {
   themeColor: "#ffde59",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
 };
+
 export const metadata = {
   title: "Schulte Table - Improve Reading Speed & Focus Training",
   description:
@@ -30,6 +32,33 @@ export const metadata = {
     "mental training",
     "attention training",
     "eye movement training",
+    "schulte table game",
+    "schulte table colour",
+    "schulte-table",
+    "tablica schulte",
+    "schulte tables",
+    "brain game schulte table",
+    "schulte table brain game",
+    "table schulte",
+    "shulte table",
+    "schultetable",
+    "schulte game",
+    "tabla de schulte",
+    "schule table",
+    "schutle table",
+    "the schulte table",
+    "schulte table brain exercise",
+    "schulte grid",
+    "schult table",
+    "shuttle table brain game",
+    "schulte table games",
+    "shult table",
+    "tablas schulte",
+    "tabelul lui schulte",
+    "mesa de schulte",
+    "tablas de schulte",
+    "schultz tables",
+    "brain exercise schulte table",
   ],
   authors: [{ name: "SchulteTable.com" }],
   creator: "SchulteTable.com",
@@ -53,7 +82,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.png", // Make sure to create this image
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Schulte Table Training Interface",
@@ -65,7 +94,7 @@ export const metadata = {
     title: "Schulte Table - Speed Reading & Focus Training",
     description:
       "Improve your reading speed and concentration with scientifically proven Schulte Table exercises. Free brain training tool.",
-    images: ["/twitter-image.png"], // Make sure to create this image
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
@@ -78,11 +107,10 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-
   verification: {
-    google: "your-google-site-verification", // Add your Google verification code
-    yandex: "your-yandex-verification", // Add if you want Yandex verification
-    bing: "your-bing-verification", // Add if you want Bing verification
+    google: "your-google-site-verification",
+    yandex: "your-yandex-verification",
+    bing: "your-bing-verification",
   },
   category: "Educational Tool",
 };
