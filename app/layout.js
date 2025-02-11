@@ -1,6 +1,7 @@
 import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import Footer from "./_components/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google"; // Import Google Analytics
 
 const pixelFont = Press_Start_2P({
   subsets: ["latin"],
@@ -90,6 +91,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <GoogleAnalytics gaId="G-66EJ7VMS98" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
