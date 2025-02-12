@@ -70,11 +70,16 @@ export async function getAllNotifications() {
   if (error) console.log("cannot fetch", error);
   return data;
 }
-// export async function getUsersScore(id) {
-//   const { data, error } = await supabase
-//     .from("User")
-//     .select("score")
-//     .eq("id", id);
-//   if (error) console.log("cannot fetch", error);
-//   return data;
-// }
+export async function getAllBlogs() {
+  const { data, error } = await supabase.from("Blogs").select("*");
+  if (error) console.log("cannot fetch", error);
+  return data;
+}
+export async function getBlogBySlugName(slug) {
+  const { data, error } = await supabase
+    .from("Blogs")
+    .select("*")
+    .eq("slug", slug);
+  if (error) console.log("cannot fetch", error);
+  return data;
+}
