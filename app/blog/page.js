@@ -9,7 +9,9 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 });
-
+export const metadata = {
+  title: "Schultetable.com | Blogs",
+};
 export default async function Page() {
   const blogs = await getAllBlogs();
 
