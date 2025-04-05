@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // ✅ for App Router
 import { RegisterUser } from "@/app/_lib/actions";
 
 export default function RegisterForm() {
+  const router = useRouter(); // ✅ initialize router
   const [status, setStatus] = useState({ success: null, message: "" });
   const [loading, setLoading] = useState(false);
 
@@ -13,21 +15,25 @@ export default function RegisterForm() {
     setLoading(true);
     const formData = new FormData(event.target);
 
-    // Ensure passwords match
     if (formData.get("password") !== formData.get("confirm-password")) {
       setStatus({ success: false, message: "Passwords do not match." });
       setLoading(false);
       return;
     }
 
-    // Call the register function
     const response = await RegisterUser(formData);
 
     if (response.error) {
       setStatus({ success: false, message: response.error.message });
     } else {
       setStatus({ success: true, message: response.message });
+
+      // ✅ Redirect to homepage after 1s delay (optional)
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     }
+
     setLoading(false);
   }
 
