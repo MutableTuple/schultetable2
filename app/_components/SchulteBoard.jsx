@@ -5,6 +5,7 @@ import Buttons from "./Buttons";
 import Sidebar from "./Sidebar";
 import { supabase } from "../_lib/supabase";
 import { v4 as uuidv4 } from "uuid";
+import FastestTime from "./FastestTime";
 
 export default function SchulteBoard({ session }) {
   // Get user data if session exists
@@ -279,7 +280,7 @@ export default function SchulteBoard({ session }) {
             Start
           </button>
         </div>
-
+        <FastestTime grid_size={gridSize} difficulty={difficulty} />
         <div
           className={`grid ${getGridGapClass()} mt-4 max-w-[90vw] md:max-w-[70vh]`}
           style={{

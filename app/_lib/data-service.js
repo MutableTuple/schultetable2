@@ -11,7 +11,6 @@ async function trackGameSession(total_wrong_click, total_right_click, user) {
     .from("SingleGameStat")
     .insert([{ total_wrong_click, total_right_click, time_taken, user }])
     .select();
-
   return data;
 }
 
@@ -82,4 +81,26 @@ export async function getBlogBySlugName(slug) {
     .eq("slug", slug);
   if (error) console.log("cannot fetch", error);
   return data;
+}
+
+export async function getFastestTimeForGame(gridSize, difficulty) {
+  const { data, error } = await supabase
+    .from("SingleGameStat") // your table name
+    .select("user, time_taken, grid_size, difficulty") // adjust as needed
+    .eq("grid_size", gridSize)
+    .eq("difficulty", difficulty)
+    .gt("time_taken", 0) // ✅ only include records where time > 0
+    .order("time_taken", { ascending: true })
+    .limit(1); // Get only the fastest time
+
+  if (error) {
+    console.log("Error fetching fastest time:", error);
+    return null;
+  }
+
+  // Log the returned data for debugging
+  console.log("Fastest time for", gridSize, ":", data);
+
+  // Check if data exists and return the first item, else return null
+  return data && data.length > 0 ? data[0] : null;
 }
