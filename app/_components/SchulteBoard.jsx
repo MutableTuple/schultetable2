@@ -13,7 +13,7 @@ export default function SchulteBoard({ session }) {
     ? JSON.parse(session.user.value)?.identities?.[0]?.id
     : null;
 
-  const [gridSize, setGridSize] = useState(4);
+  const [gridSize, setGridSize] = useState(3);
   const [difficulty, setDifficulty] = useState("Easy");
   const [gameId, setGameId] = useState(null);
   const [totalWrongClicks, setTotalWrongClicks] = useState(0);
@@ -145,6 +145,19 @@ export default function SchulteBoard({ session }) {
           difficulty: difficulty,
           total_wrong_click: 0,
           total_right_click: 0,
+          time_taken: 0,
+        },
+      ]);
+      if (error) console.error("Error creating game entry:", error);
+    }
+
+    if (!firstClickMade) {
+      setFirstClickMade(true);
+      const { error } = await supabase.from("GameStats").insert([
+        {
+          grid_size: gridSize,
+          total_right_clicks: totalRightClicks,
+          total_wrong_clicks: totalWrongClicks,
           time_taken: 0,
         },
       ]);

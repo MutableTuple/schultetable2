@@ -3,7 +3,7 @@ import Titles from "./Titles";
 
 export default function GridSize({ setGridSize, disabled }) {
   const [customSize, setCustomSize] = useState("");
-  const [selectedSize, setSelectedSize] = useState(4); // Default grid size
+  const [selectedSize, setSelectedSize] = useState(3); // Default grid size
 
   const sizes = [3, 4, 5, 6, 7];
 
