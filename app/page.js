@@ -5,6 +5,7 @@ import SchulteBoard from "./_components/SchulteBoard";
 import { getSession } from "./_lib/auth";
 import { getAllNotifications } from "./_lib/data-service";
 import LeaderBoardBtn from "./_components/LeaderBoardBtn";
+import LastGameStat from "./_components/LastGameStat";
 
 export default async function Home() {
   const session = await getSession();
@@ -13,6 +14,7 @@ export default async function Home() {
   return (
     <div className="">
       <Notification notifications={notifications} />
+      {/* <LastGameStat /> */}
       <LeaderBoardBtn />
       <SchulteBoard session={session} />
     </div>
