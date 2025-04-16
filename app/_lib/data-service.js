@@ -34,10 +34,10 @@ export async function getStatsofUser(user_id) {
   console.log("✅ Data fetched:", data);
   return data;
 }
-export async function addUsertoDB(id, email) {
+export async function addUsertoDB(name, id, email) {
   const { data, error } = await supabase
     .from("User")
-    .insert([{ id, email }])
+    .insert([{ name, id, email }])
     .select();
 
   if (error) console.log("cant add", error);

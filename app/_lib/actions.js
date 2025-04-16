@@ -3,12 +3,14 @@ import { addUsertoDB } from "./data-service";
 import { supabase } from "./supabase";
 import { setSession, getSession } from "./auth"; // Import session handler
 export async function RegisterUser(formData) {
+  const fullName = formData.get("fullName");
+
   const { data, error } = await supabase.auth.signUp({
     email: formData.get("email"),
     password: formData.get("password"),
     options: {
-      user_metadata: {
-        display_name: formData.get("fullName"),
+      data: {
+        display_name: fullName, // or whatever field you want
       },
     },
   });
@@ -19,10 +21,7 @@ export async function RegisterUser(formData) {
   }
 
   // Store user in the database even if email is not confirmed
-  await addUsertoDB(data.user.id, data.user.email, {
-    name: formData.get("name"),
-    emailConfirmed: data.user.email_confirmed_at ? true : false,
-  });
+  await addUsertoDB(fullName, data.user.id, data.user.email);
 
   if (data?.user && data?.session) {
     await setSession(data.session); // Store session in cookies
