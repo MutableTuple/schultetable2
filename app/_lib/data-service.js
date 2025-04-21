@@ -85,22 +85,29 @@ export async function getBlogBySlugName(slug) {
 
 export async function getFastestTimeForGame(gridSize, difficulty) {
   const { data, error } = await supabase
-    .from("SingleGameStat") // your table name
-    .select("user, time_taken, grid_size, difficulty") // adjust as needed
+    .from("SingleGameStat")
+    .select("user, time_taken, grid_size, difficulty")
     .eq("grid_size", gridSize)
     .eq("difficulty", difficulty)
-    .gt("time_taken", 0) // ✅ only include records where time > 0
-    .order("time_taken", { ascending: true })
-    .limit(1); // Get only the fastest time
+    .gt("time_taken", 0); // no sort or limit
 
   if (error) {
-    console.log("Error fetching fastest time:", error);
+    console.log("Error fetching times:", error);
     return null;
   }
 
-  // Log the returned data for debugging
-  console.log("Fastest time for", gridSize, ":", data);
+  // Convert time_taken to numbers and find the min
+  const validTimes = data
+    .map((entry) => ({
+      ...entry,
+      time_taken_num: parseFloat(entry.time_taken),
+    }))
+    .filter((entry) => !isNaN(entry.time_taken_num));
 
-  // Check if data exists and return the first item, else return null
-  return data && data.length > 0 ? data[0] : null;
+  const fastest = validTimes.reduce(
+    (min, curr) => (curr.time_taken_num < min.time_taken_num ? curr : min),
+    validTimes[0]
+  );
+
+  return fastest || null;
 }

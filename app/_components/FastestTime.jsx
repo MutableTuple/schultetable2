@@ -16,6 +16,7 @@ export default function FastestTime({ grid_size, difficulty }) {
       setUsername(null);
 
       const result = await getFastestTimeForGame(String(grid_size), difficulty);
+      console.log("Fastest result:", result);
 
       // If we get a valid result, set the fastest time
       if (result) {
