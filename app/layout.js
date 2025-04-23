@@ -122,11 +122,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <GoogleAnalytics gaId="G-66EJ7VMS98" />
-        <script
+        {/* <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5879583930762494"
           crossOrigin="anonymous"
-        />
+        /> */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
