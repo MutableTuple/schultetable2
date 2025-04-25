@@ -22,9 +22,9 @@ export const metadata = {
   description:
     "Train your brain with Schulte Tables - a scientifically proven method to enhance peripheral vision, reading speed, and concentration. Free online tool for visual perception training and cognitive development.",
   keywords: [
-    "schulte",
-    "舒尔特方格",
     "schulte table",
+    "舒尔特方格",
+    "schulte",
     "brain training",
     "speed reading",
     "cognitive training",
